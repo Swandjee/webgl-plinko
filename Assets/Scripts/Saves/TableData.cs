@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TableData : MonoBehaviour
+namespace SaveSystem
 {
-    // Start is called before the first frame update
-    void Start()
+    public class TableData
     {
-        
+        public TableData(string _id, Vector2 _ballStartPosition, Vector2[] _pegsPositions, BasketData[] _basketDatas)
+        {
+
+        }
+        public string ID;
+        public Vector2 BallStartPosition;
+        public Vector2[] PegsPositions;
+        public BasketData[] Baskets;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

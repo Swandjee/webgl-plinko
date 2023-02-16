@@ -1,18 +1,33 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
-public class Ball : MonoBehaviour
+namespace Gameplay
 {
-    // Start is called before the first frame update
-    void Start()
+    public class Ball : MonoBehaviour
     {
-        
+        public SpriteRenderer spriteRenderer;
+        [Range(0, 5)]
+        public float positionVariationIntensity;
+        public UnityEvent onCollisionDetected;
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.collider.isTrigger)
+            {
+                return;
+            };
+            onCollisionDetected.Invoke();
+        }
+
+        public void UpdateImage(Sprite sprite)
+        {
+            spriteRenderer.sprite = sprite;
+        }
+
+        public Vector2 GetRandomPointAroundBall()
+        {
+            var x = Random.Range(transform.position.x - positionVariationIntensity, transform.position.x + positionVariationIntensity);
+            return new Vector2(x, transform.position.y);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
