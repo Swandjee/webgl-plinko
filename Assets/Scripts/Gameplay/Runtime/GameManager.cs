@@ -25,7 +25,8 @@ namespace Gameplay
     public class GameManager : MonoBehaviour
     {
         public BasketEvent onBallEnteredBasket;
-        public UnityEvent onGameEnd;
+        public UnityEvent onGameStarted;
+        public UnityEvent onGameEnded;
 
         private int _currentScore;
 
@@ -41,9 +42,6 @@ namespace Gameplay
                 Debug.LogWarning("Found more than one GameManager, destroying.");
                 DestroyImmediate(this);
             }
-            var randomPoint = Random.Range(0, ballOriginPoint.Length);
-            ball.transform.position = ballOriginPoint[randomPoint].position;
-            ball.GetRandomPointAroundBall();
         }
 
         public void EvaluateBasket(Basket basket)
@@ -55,14 +53,22 @@ namespace Gameplay
             }
         }
 
+        public void SetupBall()
+        {
+            var randomPoint = Random.Range(0, ballOriginPoint.Length);
+            ball.transform.position = ballOriginPoint[randomPoint].position;
+            ball.GetRandomPointAroundBall();
+            ball.rigidbody.simulated = true;
+        }
+
         public void StartGame()
         {
-
+            onGameStarted.Invoke();
         }
 
         public void EndGame()
         {
-            onGameEnd.Invoke();
+            onGameEnded.Invoke();
         }
 
         public int GetScore()
