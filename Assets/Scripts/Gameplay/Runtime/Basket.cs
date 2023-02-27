@@ -13,10 +13,13 @@ namespace Gameplay
         public TextMeshProUGUI DisplayPoints;
         public SpriteRenderer SpriteRenderer;
         public string Label;
+        [Tooltip("Points in days")]
         public int Points;
+        public int Priority;
         public BasketType BasketType;
         public BasketTypeIntensity BasketTypeIntensity;
         public bool IsEndBasket;
+        public bool isPermaBasket;
         public BasketData Data;
         
         public Basket(string _label, int _points, BasketType _basketType, bool _isEndBasket)

@@ -34,7 +34,12 @@ namespace Gameplay
 
         public void SetEndScreenScore()
         {
-            scoreLabel.text = GameManager.Instance.GetScore().ToString();
+            if (GameManager.Instance.permaBasketHit)
+            {
+				scoreLabel.text = $"PERMAVORE";
+                return;
+			}
+            scoreLabel.text = $"{GameManager.Instance.GetScore()} DAYS";
         }
     }
 }

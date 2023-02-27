@@ -10,7 +10,10 @@ namespace Gameplay
         [Range(0, 5)]
         public float positionVariationIntensity;
         public UnityEvent onCollisionDetected;
-        private void Start()
+		public AudioClip[] ballHit;
+        public AudioSource audioSource;
+        public TrailRenderer trail;
+		private void Start()
         {
             rigidbody.simulated = false;
         }
@@ -32,6 +35,17 @@ namespace Gameplay
         {
             var x = Random.Range(transform.position.x - positionVariationIntensity, transform.position.x + positionVariationIntensity);
             return new Vector2(x, transform.position.y);
+        }
+
+        public void PlayRandomHitSound()
+        {
+            if(GameManager.Instance.isGamePaused)
+            {
+                return;
+            }
+            var randomClipIndex = Random.Range(0, ballHit.Length);
+            var randomClip = ballHit[randomClipIndex];
+            audioSource.PlayOneShot(randomClip);
         }
     }
 

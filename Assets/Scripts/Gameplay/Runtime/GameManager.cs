@@ -24,9 +24,15 @@ namespace Gameplay
     public class BasketEvent: UnityEvent<Basket> { }
     public class GameManager : MonoBehaviour
     {
-        public BasketEvent onBallEnteredBasket;
+		public static GameManager Instance
+		{
+			get;
+			private set;
+		}
+		public BasketEvent onBallEnteredBasket;
         public UnityEvent onGameStarted;
         public UnityEvent onGameEnded;
+        public bool isGamePaused { get; private set; } = true;
 
         private int _currentScore;
 
@@ -35,60 +41,60 @@ namespace Gameplay
         public Transform[] ballOriginPoint;
         public Sprite BasketNormalSprite;
         public Sprite BasketEndSprite;
-        private void Start()
-        {
-            if(FindObjectsOfType<GameManager>().Length > 1)
+        public bool permaBasketHit { get; private set; }
+		private void Awake()
+		{
+			if(Instance != null && Instance != this)
             {
-                Debug.LogWarning("Found more than one GameManager, destroying.");
-                DestroyImmediate(this);
+                Destroy(this);
+                return;
             }
-        }
+            Instance = this;
+		}
 
-        public void EvaluateBasket(Basket basket)
+		public void EvaluateBasket(Basket basket)
         {
             _currentScore += basket.BasketType == BasketType.Increase ? basket.Points : -basket.Points;
-            if (basket.IsEndBasket)
+            if(basket.isPermaBasket)
             {
-                EndGame();
+                permaBasketHit = true;
             }
+            if (basket.IsEndBasket || basket.isPermaBasket)
+            {
+                SoundManager.Instance.PlayRandomEndSound();
+                EndGame();
+                return;
+            }
+            SoundManager.Instance.PlayRandomBasketSound();
         }
 
         public void SetupBall()
         {
+            ball.trail.enabled = false;
             var randomPoint = Random.Range(0, ballOriginPoint.Length);
             ball.transform.position = ballOriginPoint[randomPoint].position;
-            ball.GetRandomPointAroundBall();
+			ball.transform.position = ball.GetRandomPointAroundBall();
             ball.rigidbody.simulated = true;
+            ball.trail.enabled = true;
         }
 
         public void StartGame()
         {
+            _currentScore = 0;
+            permaBasketHit = false;
+            isGamePaused = false;
             onGameStarted.Invoke();
         }
 
         public void EndGame()
         {
             onGameEnded.Invoke();
+            isGamePaused= true;
         }
 
         public int GetScore()
         {
             return _currentScore;
         }
-
-        private GameManager _instance
-        {
-            get
-            {
-                return this;
-            }
-        }
-        public static GameManager Instance { 
-            get{
-                var manager = FindObjectOfType<GameManager>();
-                return manager._instance;
-            } 
-        }
-        
     }
 }
