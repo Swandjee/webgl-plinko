@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5007403559782369069}
   - component: {fileID: 5007403559782369042}
+  - component: {fileID: 8720962914867622503}
   m_Layer: 0
   m_Name: BallOrigin
   m_TagString: Untagged
@@ -84,3 +85,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8720962914867622503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5007403559782369068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab9780cf71b998746aa996b59064b166, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

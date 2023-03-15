@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -48,7 +49,7 @@ namespace Gameplay
 		[Header("Resources")]
 		public Ball ball;
 		public TextMeshProUGUI scoreLabel;
-		public Transform[] ballOriginPoint;
+		public List<Transform> ballOriginPoint = new List<Transform>();
 		public bool permaBasketHit { get; private set; }
 		private void Awake()
 		{
@@ -82,7 +83,7 @@ namespace Gameplay
 		public void SetupBall()
 		{
 			ball.trail.enabled = false;
-			var randomPoint = Random.Range(0, ballOriginPoint.Length);
+			var randomPoint = Random.Range(0, ballOriginPoint.Count);
 			ball.transform.position = ballOriginPoint[randomPoint].position;
 			ball.transform.position = ball.GetRandomPointAroundBall();
 			ball.rigidbody.velocity = Vector3.zero;
@@ -107,6 +108,16 @@ namespace Gameplay
 		public int GetScore()
 		{
 			return _currentScore;
+		}
+
+		public void AddToOrigins(Transform ballOrigin)
+		{
+			ballOriginPoint.Add(ballOrigin);
+		}
+
+		public void RemoveFromOrigins(Transform ballOrigin)
+		{
+			ballOriginPoint.Remove(ballOrigin);
 		}
 	}
 }
