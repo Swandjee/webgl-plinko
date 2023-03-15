@@ -13,11 +13,32 @@ namespace Gameplay
 		public AudioClip[] ballHit;
         public AudioSource audioSource;
         public TrailRenderer trail;
+
+        private float timeBeforeDebugNudge = 5f;
+        private float timeElapsedForDebug = 0f;
+        private Vector2 debugThreshold = new Vector2(0.1f, 0.1f);
 		private void Start()
         {
             rigidbody.simulated = false;
         }
-        private void OnCollisionEnter2D(Collision2D collision)
+
+		private void Update()
+		{
+            
+			if (rigidbody.velocity.x < debugThreshold.x && rigidbody.velocity.y < debugThreshold.y)
+			{
+                timeElapsedForDebug += Time.deltaTime;
+			} else
+			{
+                if (timeElapsedForDebug != 0) timeElapsedForDebug = 0f;
+			}
+            if(timeElapsedForDebug >= timeBeforeDebugNudge)
+			{
+                var randomDirection = new Vector2(Random.Range(-0.2f, 0.201f), 0);
+                rigidbody.AddForce(randomDirection);
+			}
+		}
+		private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.collider.isTrigger)
             {

@@ -9,8 +9,6 @@ namespace Gameplay
     [System.Serializable]
     public class Basket : MonoBehaviour
     {
-        public TextMeshProUGUI DisplayLabel;
-        public TextMeshProUGUI DisplayPoints;
         public SpriteRenderer SpriteRenderer;
         public string Label;
         [Tooltip("Points in days")]
@@ -21,6 +19,9 @@ namespace Gameplay
         public bool IsEndBasket;
         public bool isPermaBasket;
         public BasketData Data;
+        public AudioClip[] audioClips;
+        public AudioSource audioSource;
+        public ParticleSystem particles;
         
         public Basket(string _label, int _points, BasketType _basketType, bool _isEndBasket)
         {
@@ -32,39 +33,30 @@ namespace Gameplay
         private void Start()
         {
             UpdateLabel(Label);
+			if (isPermaBasket)
+			{
+                UpdateLabel("PERMAVORE");
+			}
             UpdatePoints(Points);
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            if (GameManager.Instance.isGamePaused) return;
             if(collision.gameObject.layer == (int)CollisionLayers.Ball)
             {
+                PlayRandomClip();
+                PlayParticles();
                 GameManager.Instance.onBallEnteredBasket?.Invoke(this);
             }
         }
 
-        private string GetPointsWithOperator(int points)
-        {
-            switch (BasketType)
-            {
-                case BasketType.Increase:
-                    return $"+{points}";
-                case BasketType.Decrease:
-                    return $"-{points}";
-                default:
-                    break;
-            }
-            return $"";
-        }
-
         public void UpdateLabel(string label)
         {
-            DisplayLabel.text = label;
             Label = label;
         }
 
         public void UpdatePoints(int points)
         {
-            DisplayPoints.text = GetPointsWithOperator(points);
             Points = points;
         }
 
@@ -87,6 +79,21 @@ namespace Gameplay
             BasketTypeIntensity = data.BasketTypeIntensity;
             IsEndBasket = data.IsEndBasket;
             transform.position = data.Position;
+        }
+        private void PlayParticles()
+		{
+            particles.Play();
+		}
+        private void PlayRandomClip()
+		{
+            PlayRandomSound(audioClips);
+		}
+
+        private void PlayRandomSound(AudioClip[] clips)
+        {
+            var randomClipIndex = Random.Range(0, clips.Length);
+            var randomClip = clips[randomClipIndex];
+            audioSource.PlayOneShot(randomClip);
         }
     }
 }
