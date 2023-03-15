@@ -34,6 +34,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8769640042557395920, guid: 4caa7d59d47c55342abd903d79d8a738,
         type: 3}
+      propertyPath: isInstaLossBasket
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769640042557395920, guid: 4caa7d59d47c55342abd903d79d8a738,
+        type: 3}
       propertyPath: audioClips.Array.size
       value: 1
       objectReference: {fileID: 0}

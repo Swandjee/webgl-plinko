@@ -17,7 +17,7 @@ namespace Gameplay
         public BasketType BasketType;
         public BasketTypeIntensity BasketTypeIntensity;
         public bool IsEndBasket;
-        public bool isPermaBasket;
+        public bool isInstaLossBasket;
         public BasketData Data;
         public AudioClip[] audioClips;
         public AudioSource audioSource;
@@ -33,9 +33,9 @@ namespace Gameplay
         private void Start()
         {
             UpdateLabel(Label);
-			if (isPermaBasket)
+			if (isInstaLossBasket)
 			{
-                UpdateLabel("PERMAVORE");
+                UpdateLabel(UIManager.Instance.instaLossLabel);
 			}
             UpdatePoints(Points);
         }

@@ -6,12 +6,28 @@ namespace Gameplay
 {
     public class UIManager : MonoBehaviour
     {
+        public static UIManager Instance
+        {
+            get;
+            private set;
+        }
+        [Header("Labels")]
+        public string instaLossLabel = "NO POINTS";
+        public string pointsName = "Points";
         [Header("Start Screen")]
         public RectTransform startScreen;
         [Header("End Screen")]
         public RectTransform endScreen;
         public TextMeshProUGUI scoreLabel;
-
+        private void Awake()
+        {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(this);
+                return;
+            }
+            Instance = this;
+        }
         public void ShowStartScreen()
         {
             startScreen.gameObject.SetActive(true);
@@ -36,10 +52,10 @@ namespace Gameplay
         {
             if (GameManager.Instance.permaBasketHit)
             {
-				scoreLabel.text = $"PERMAVORE";
+				scoreLabel.text = $"{instaLossLabel}";
                 return;
 			}
-            scoreLabel.text = $"{GameManager.Instance.GetScore()} DAYS";
+            scoreLabel.text = $"{GameManager.Instance.GetScore()} {pointsName}";
         }
     }
 }

@@ -41,7 +41,7 @@ namespace Gameplay
 			set
 			{
 				currentScore = Mathf.Clamp(value, 0, value);
-				scoreLabel.text = $"{Mathf.Clamp(value, 0, value)} DAY(S)";
+				scoreLabel.text = $"{Mathf.Clamp(value, 0, value)} {UIManager.Instance.pointsName}";
 			}
 		}
 
@@ -63,7 +63,7 @@ namespace Gameplay
 		public void EvaluateBasket(Basket basket)
 		{
 			_currentScore += basket.BasketType == BasketType.Increase ? basket.Points : -basket.Points;
-			if (basket.isPermaBasket)
+			if (basket.isInstaLossBasket)
 			{
 				permaBasketHit = true;
 			}
@@ -72,7 +72,7 @@ namespace Gameplay
 				SoundManager.Instance.PlayRandomEndSound();
 				if (permaBasketHit)
 				{
-					scoreLabel.text = $"PERMAVORE";
+					scoreLabel.text = $"{UIManager.Instance.instaLossLabel}";
 				}
 				EndGame();
 				return;
