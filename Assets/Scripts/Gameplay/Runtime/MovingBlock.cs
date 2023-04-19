@@ -40,7 +40,7 @@ namespace Gameplay
 
 		private void Rotates()
 		{
-			transform.Rotate((rotateClockwise ? -rotationDirection : rotationDirection) * rotationSpeed);
+			transform.Rotate((rotateClockwise ? -rotationDirection : rotationDirection) * rotationSpeed * Time.deltaTime);
 		}
 	}
 }

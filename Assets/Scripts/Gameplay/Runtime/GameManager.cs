@@ -60,7 +60,7 @@ namespace Gameplay
 			}
 			Instance = this;
 		}
-
+		
 		public void EvaluateBasket(Basket basket)
 		{
 			_currentScore += basket.BasketType == BasketType.Increase ? basket.Points : -basket.Points;
