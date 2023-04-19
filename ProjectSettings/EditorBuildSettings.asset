@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainTable.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/TableTwo.unity
+    guid: 09641540dcc44e14b84c4a8f9147a26d
   m_configObjects: {}

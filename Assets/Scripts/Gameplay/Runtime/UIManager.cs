@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Gameplay
 {
@@ -46,6 +47,10 @@ namespace Gameplay
         public void HideEndScreen()
         {
             endScreen.gameObject.SetActive(false);
+        }
+        public void GoToMenu()
+        {
+            SceneManager.LoadScene(0);
         }
 
         public void SetEndScreenScore()
