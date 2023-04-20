@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TableTwo.unity
     guid: 09641540dcc44e14b84c4a8f9147a26d
+  - enabled: 1
+    path: Assets/Scenes/TableThree.unity
+    guid: 78ccbd9142595ce448bafcbf0518747d
   m_configObjects: {}
