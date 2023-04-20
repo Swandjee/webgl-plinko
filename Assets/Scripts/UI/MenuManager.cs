@@ -17,6 +17,11 @@ namespace UI
 			SceneManager.LoadScene(2);
 		}
 
+		public void GoToThirdTable()
+		{
+			SceneManager.LoadScene(3);
+		}
+
 		public void GoToMenu()
 		{
 			SceneManager.LoadScene(0);
