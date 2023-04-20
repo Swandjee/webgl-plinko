@@ -1,7 +1,12 @@
+#if UNITY_EDITOR
 using UnityEngine.SceneManagement;
+
 using UnityEditor.SceneTemplate;
 
-public class SceneTemplatePipeline : ISceneTemplatePipeline
+public class SceneTemplatePipeline
+
+    : ISceneTemplatePipeline
+
 {
     public virtual bool IsValidTemplateForInstantiation(SceneTemplateAsset sceneTemplateAsset)
     {
@@ -18,3 +23,4 @@ public class SceneTemplatePipeline : ISceneTemplatePipeline
         
     }
 }
+#endif
